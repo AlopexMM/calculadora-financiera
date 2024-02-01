@@ -1,19 +1,14 @@
-# salary-negotiation
+# Calculadora financiera
 
-## Project setup
-```
-npm install
-```
+La aplicación es una pagina con la que se puede calcular el valor del sueldo en dolares para un mes determinado y ver cuanto se estaria cobrando en pesos si estuviera indexado
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## TODO
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- [X] Dockerizar
+- [] Realizar el deploy
+  
+## Run build
+docker build -t alopexmm/calculadora-financiera-app .
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Run container
+docker run -it -p 8080:80 --rm --name dockerize-calculadora-financiera-app-1 alopexmm/calculadora-financiera-app

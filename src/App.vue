@@ -1,30 +1,92 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="container">
+    <nav class="bd-navbar navbar">
+      <div class="navbar-brand">
+        <router-link to="/" class="navbar-item">
+          <figure class="image is-32x32">
+            <img src="./assets/salary-logo.jpg" alt="salary-logo">
+          </figure>
+        </router-link>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    </nav>
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Dolar Oficial</p>
+          <p class="title">{{ dollarOficial }}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Dolar Blue</p>
+          <p class="title">{{ dollarBlue }}</p>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <br>
+  <section class="section">
+    <router-view :oficialToday="this.dollar.oficial"/>
+  </section>
+  <footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      <strong>Calculadora de salario en dolares</strong> por <a href="https://mariomori.ar">Mario Mori</a>. The source code is licensed
+      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+    </p>
+  </div>
+</footer>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+@import '../node_modules/bulma/';
 
-nav {
-  padding: 30px;
+</style>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+<script>
+import axios from 'axios'
 
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  name: "App",
+  data() {
+    return {
+      bluelyticsUrl: "https://api.bluelytics.com.ar/v2/latest",
+      dollar: {
+        oficial: 0.0,
+        blue: 0.0
+      }
+    }
+  },
+  computed: {
+    dollarOficial() {
+      if (this.dollar.oficial === 0.0) {
+        this.dollarCardsUpdate()
+      }
+      return this.dollar.oficial
+    },
+    dollarBlue() {
+      if (this.dollar.blue === 0.0) {
+        this.dollarCardsUpdate()
+      }
+      return this.dollar.blue
+    }
+  },
+  methods: {
+    dollarCardsUpdate(){
+      axios.get(this.bluelyticsUrl)
+      .then((response) => {
+        this.dollar["oficial"] = response["data"]["oficial"]["value_sell"]
+        this.dollar["blue"] = response["data"]["blue"]["value_sell"]
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
-</style>
+</script>
