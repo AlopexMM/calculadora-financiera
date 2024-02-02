@@ -5,7 +5,7 @@ La aplicación es una pagina con la que se puede calcular el valor del sueldo en
 ## TODO
 
 - [X] Dockerizar
-- [ ] Realizar el deploy
+- [X] Realizar el deploy de calculadora-financiera.alopexmm.ar
   
 ## Run build
 docker build -t alopexmm/calculadora-financiera-app .
