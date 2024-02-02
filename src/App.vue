@@ -36,7 +36,7 @@
   <footer class="footer">
   <div class="content has-text-centered">
     <p>
-      <strong>Calculadora financiera</strong> por <a href="https://mariomori.ar">Mario Mori</a>. The source code is licensed
+      <strong>Calculadora financiera</strong> por <a href="https://mariomori.ar">Mario Mori</a>. El codigo se encuentra bajo licencia
       <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
     </p>
   </div>
