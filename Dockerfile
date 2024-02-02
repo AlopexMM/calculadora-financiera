@@ -3,7 +3,7 @@ FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
 RUN npm install @vue/cli-service @vue/cli -g && vue --version
-RUN echo $PATH 
+RUN export PATH=$PATH:/usr/local/lib/node_modules 
 RUN npm install --production
 COPY . .
 RUN npm run build
