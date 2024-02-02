@@ -11,4 +11,4 @@ La aplicación es una pagina con la que se puede calcular el valor del sueldo en
 docker build -t alopexmm/calculadora-financiera-app .
 
 ## Run container
-docker run -d -p 8080:80 --name dockerize-calculadora-financiera-app-1 alopexmm/calculadora-financiera-app
+docker run -d -p 8080:80 --name calculadora-financiera alopexmm/calculadora-financiera-app
