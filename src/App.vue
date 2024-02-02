@@ -3,8 +3,8 @@
     <nav class="bd-navbar navbar">
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item">
-          <figure class="image is-32x32">
-            <img src="./assets/salary-logo.jpg" alt="salary-logo">
+          <figure class="image">
+            <img src="./assets/logo.png" alt="logo">
           </figure>
         </router-link>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
@@ -36,7 +36,7 @@
   <footer class="footer">
   <div class="content has-text-centered">
     <p>
-      <strong>Calculadora de salario en dolares</strong> por <a href="https://mariomori.ar">Mario Mori</a>. The source code is licensed
+      <strong>Calculadora financiera</strong> por <a href="https://mariomori.ar">Mario Mori</a>. The source code is licensed
       <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
     </p>
   </div>
