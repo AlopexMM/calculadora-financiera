@@ -2,7 +2,7 @@
 FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm install @vue/cli-service @vue/cli -g && vue --version
+RUN npm install @vue/cli-service @vue/cli @vue/cli-plugin-babel -g && vue --version
 RUN export PATH=$PATH:/usr/local/lib/node_modules 
 RUN npm install --production
 COPY . .
