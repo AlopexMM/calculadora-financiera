@@ -92,7 +92,7 @@
       async calculateSalary() {
 
         // Validate the salary
-        this.validateSalary()
+        const salary = this.validateSalary()
 
         // Calculate the salary
         if (this.salaryCheck) {
@@ -113,27 +113,30 @@
                 oficialToday = res.data.oficial.value_sell
             })
             .catch( err => console.log(err))
-            
             // Salary in dollars
-            this.salaryInDollars = parseFloat(this.$refs.salaryInPesos.value) / oficialHistorical
+            console.log(salary)
+            this.salaryInDollars = parseFloat(salary) / oficialHistorical
     
             // Salary in pesos today
             this.salaryInPesosToday = this.salaryInDollars * oficialToday
-        } else {
-            this.$refs.salaryInPesos.value = ''
         }
         
       },
 
       validateSalary() {
-            if (this.$refs.salaryInPesos.value != '') {
-                if (parseFloat(this.$refs.salaryInPesos.value) >= 0) {
-                    this.salaryCheck = !this.salaryCheck
-                }
-            } else {
+            const salary = this.$refs.salaryInPesos.value
+            if (salary == '') {
                 this.salaryCheck = false
             }
-            return this.salaryCheck
+            if (parseFloat(salary) <= 0) {
+                this.salaryCheck = false
+                this.$refs.salaryInPesos.value = ''
+            }
+            if (parseFloat(salary) > 0) {
+                this.salaryCheck = true
+
+            }
+            return salary
         },
     },
   }
