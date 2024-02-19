@@ -118,20 +118,20 @@
             .catch( err => console.log(err))
             
             // Salary in dollars
-            this.salaryInDollars = parseFloat(salary) / oficialHistorical
+            this.salaryInDollars = salary / oficialHistorical
     
             // Salary in pesos today
             this.salaryInPesosToday = this.salaryInDollars * oficialToday
 
             // Salary difference in percentage
-            this.salaryPercentageDifference = (this.salaryInPesosToday - parseFloat(salary)) / parseFloat(salary) * 100
+            this.salaryPercentageDifference = (this.salaryInPesosToday - salary) / salary * 100
         }
         
       },
 
       validateSalary() {
-            const salary = this.$refs.salaryInPesos.value
-            if (salary == '') {
+            const salary = parseFloat(this.$refs.salaryInPesos.value)
+            if (isNaN(salary)) {
                 this.salaryCheck = false
             }
             if (parseFloat(salary) <= 0) {
