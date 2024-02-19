@@ -1,7 +1,7 @@
 <template>
     <div class="columns">
       <div class="column" >
-        <div class="card" style="height:250px;">
+        <div class="card" style="height:300px;">
           <div class="card-content">
             <div class="content">
               <p>Coloque su sueldo en pesos y seleccione la fecha en la que recibio ese sueldo por primera vez.</p>
@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="column">
-        <div class="card" style="height:250px;">
+        <div class="card" style="height:300px;">
           <div class="card-content">
             <div class="content">
               <div class="field">
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="column">
-        <div class="card" style="height:250px;">
+        <div class="card" style="height:300px;">
           <div class="card-content">
             <div class="content">
               <p>La tabla muestra su salario en dolares de la fecha {{ dateStr }}. <br> Si el mismo estuviera indexado cuanto seria.</p>
@@ -60,6 +60,8 @@
                   </tr>
                 </tbody>
               </table>
+              <h6 class="subtitle is-6">Hubo una variacion del {{ salaryPercentageDifference.toFixed(2) }}%</h6>
+              <br>
             </div>
           </div>
         </div>
@@ -77,6 +79,7 @@
         dateStr : 'YYYY-MM-DD',
         salaryInDollars: 0,
         salaryInPesosToday: 0,
+        salaryPercentageDifference: 0,
         bluelyticsHistoricalUrl: "https://api.bluelytics.com.ar/v2/historical",
         bluelyticsLatestUrl: "https://api.bluelytics.com.ar/v2/latest",
         salaryCheck: true,
@@ -113,12 +116,15 @@
                 oficialToday = res.data.oficial.value_sell
             })
             .catch( err => console.log(err))
+            
             // Salary in dollars
-            console.log(salary)
             this.salaryInDollars = parseFloat(salary) / oficialHistorical
     
             // Salary in pesos today
             this.salaryInPesosToday = this.salaryInDollars * oficialToday
+
+            // Salary difference in percentage
+            this.salaryPercentageDifference = (this.salaryInPesosToday - parseFloat(salary)) / parseFloat(salary) * 100
         }
         
       },
