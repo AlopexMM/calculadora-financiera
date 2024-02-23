@@ -1,77 +1,17 @@
 <template>
     <div class="columns">
-      <div class="column" >
-        <div class="card" style="height:300px;">
-          <div class="card-content">
-            <div class="content">
-              <p>Coloque su sueldo en pesos y seleccione la fecha en la que recibio ese sueldo por primera vez.</p>
-              <p>Luego presione en calcular.</p>
-            </div>
-          </div>
-        </div>
+      <div class="column">
+        <DollarToPesos />
       </div>
       <div class="column">
-        <div class="card" style="height:300px;">
-          <div class="card-content">
-            <div class="content">
-              <div class="field">
-                <div class="control has-icons-right" v-if="salaryCheck">
-                    <input type="text" class="input" placeholder="Sueldo en pesos" ref="salaryInPesos">
-                </div>
-                <div class="control has-icons-right" v-else>
-                    <input type="text" class="input is-danger" placeholder="Sueldo en pesos" ref="salaryInPesos">
-                    <p class="help is-danger">No se puede ingresar un valor igual o menor a 0, ni estar vacio.</p>
-                </div>
-              </div>
-              <div class="field">
-                <Datepicker @selectedDate="updateDate"/>
-              </div>
-              <div class="field">
-                <div class="buttons">
-                  <div class="button is-dark" @click="calculateSalary">
-                    Calcular
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="card" style="height:300px;">
-          <div class="card-content">
-            <div class="content">
-              <p>La tabla muestra su salario en dolares de la fecha {{ dateStr }}. <br> Si el mismo estuviera indexado cuanto seria.</p>
-              <table class="table is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>Moneda</th>
-                    <th>Monto</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Dolares</td>
-                    <td>$ {{ salaryInDollars.toFixed(2) }}</td>
-                  </tr>
-                  <tr>
-                    <td>Pesos</td>
-                    <td>$ {{ salaryInPesosToday.toFixed(2) }}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <h6 class="subtitle is-6">Hubo una variacion del {{ salaryPercentageDifference.toFixed(2) }}%</h6>
-              <br>
-            </div>
-          </div>
-        </div>
+        <SalaryDevaluation />
       </div>
     </div>
   </template>
   
   <script>
-  import axios from 'axios';
-  import Datepicker from '@/components/Datepicker.vue';
+  import DollarToPesos from '@/components/DollarToPesos.vue';
+  import SalaryDevaluation from '@/components/SalaryDevaluation.vue'
   
   export default {
     data() {
@@ -86,7 +26,8 @@
       }
     },
     components: {
-      Datepicker
+      DollarToPesos,
+      SalaryDevaluation,
     },
     methods: {
       updateDate(d) {

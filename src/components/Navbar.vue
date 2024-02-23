@@ -1,13 +1,11 @@
 <template>
-    <div class="container">
-    <nav class="bd-navbar navbar">
-      <div class="navbar-brand">
-        <router-link to="/" class="navbar-item">
-          <figure class="image">
-            <img src="../assets/logo.png" alt="logo">
-          </figure>
-        </router-link>
-      </div>
+  <div class="container mt-2">
+    <nav class="level">
+      <router-link to="/" class="level-item has-text-centered">
+        <figure class="image is-48x48">
+          <img src="../assets/logo.png" alt="logo">
+        </figure>
+      </router-link>
     </nav>
     <nav class="level">
       <div class="level-item has-text-centered">
