@@ -7,7 +7,7 @@
   <footer class="footer mt-auto">
     <div class="content has-text-centered">
       <p>
-        <strong>Calculadora financiera</strong> por <a href="https://mariomori.ar">Mario Mori</a>. El codigo se encuentra bajo licencia
+        <strong>Calculadora financiera</strong> por <a href="https://github.com/AlopexMM">Mario Mori (AlopexMM)</a>. El codigo se encuentra bajo licencia
         <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
       </p>
   </div>
