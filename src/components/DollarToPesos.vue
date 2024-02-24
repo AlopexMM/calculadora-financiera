@@ -67,15 +67,15 @@
             }
         },
         methods: {
-            calculateSalary: () => {
+            async calculateSalary(){
                 const salaryInDollars = this.$refs.salaryInDollars.value
                 if (salaryCheck(salaryInDollars)) {
-                    const dollarToday = bluelyticsLatest()
                     try {
-                        salaryFromDollarBlueToPesos = parseFloat(salaryInDollars) * dollarToday.blue.value_sell
-                        salaryFromDollarOficialToPesos = parseFloat(salaryInDollars) * dollarToday.blue.value_sell
+                        const dollarToday = await bluelyticsLatest()
+                        this.salaryFromDollarBlueToPesos = parseFloat(salaryInDollars) * dollarToday.blue.value_sell
+                        this.salaryFromDollarOficialToPesos = parseFloat(salaryInDollars) * dollarToday.oficial.value_sell
                     } catch (err) {
-                        warning = TextTrackCue
+                        this.warning = true
                         console.log(err)
                     }
                 } else enteredSalary = false

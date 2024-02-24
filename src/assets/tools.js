@@ -9,11 +9,12 @@ export async function bluelyticsHistorical(date) {
     const params = {
         day: date
     }
-    const url = `${process.env.BASE_URL}/historical`
-
+    const url = 'https://api.bluelytics.com.ar/v2/historical'
+    let data = {}
     await axios.get(url, { params: params })
-    .then(res => { return res.data })
-    .catch(err => { return err })
+    .then(res => { data = res.data })
+    .catch(err => { console.log(err) })
+    return data
 }
 
 export async function bluelyticsLatest() {
@@ -21,10 +22,12 @@ export async function bluelyticsLatest() {
      * Get the price of dollar at that moment
      * @returns Object with dollar blue and oficial
      */
-    const url = `${process.env.BASE_URL}/latest`
+    const url = 'https://api.bluelytics.com.ar/v2/latest'
+    let data = {}
     await axios.get(url)
-    .then(res => { return res.data })
-    .catch(err => { return err })
+    .then(res => { data = res.data })
+    .catch(err => { console.log(err) })
+    return data
 }
 
 export function salaryCheck(salary) {

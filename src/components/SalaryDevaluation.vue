@@ -89,17 +89,18 @@ export default {
             if (salaryCheck(salaryInPesos)) {
                 // Get historical data from bluelytics
                 try {
-                    const dollarsHistorical = bluelyticsHistorical(this.dateStr)
-                    const dollarsLatest = bluelyticsLatest()
+                    const dollarHistorical = await bluelyticsHistorical(this.dateStr)
+                    const dollarLatest = await bluelyticsLatest()
                     // Salary in dollars
-                    this.salaryInDollars = salaryInPesos / dollarsHistorical.oficial.value_sell
+                    this.salaryInDollars = salaryInPesos / dollarHistorical.oficial.value_sell
             
                     // Salary in pesos today
-                    this.salaryInPesosToday = this.salaryInDollars * dollarsLatest.oficial.value_sell
+                    this.salaryInPesosToday = this.salaryInDollars * dollarLatest.oficial.value_sell
 
                     // Salary difference in percentage
                     this.salaryPercentageDifference = (this.salaryInPesosToday - salaryInPesos) / salaryInPesos * 100
                 } catch(err) {
+                    this.warning = true
                     console.log(err)
                 }
 
