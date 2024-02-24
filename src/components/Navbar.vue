@@ -10,14 +10,26 @@
     <nav class="level">
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">Dolar Oficial</p>
-          <p class="title">{{ dollarOficial }}</p>
+          <p class="heading">Dolar Oficial Compra</p>
+          <p class="title">{{ oficialCompra }}</p>
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">Dolar Blue</p>
-          <p class="title">{{ dollarBlue }}</p>
+          <p class="heading">Dolar Oficial Venta</p>
+          <p class="title">{{ oficialVenta }}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Dolar Blue Compra</p>
+          <p class="title">{{ blueCompra }}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Dolar Blue Venta</p>
+          <p class="title">{{ blueVenta }}</p>
         </div>
       </div>
     </nav>
@@ -26,43 +38,28 @@
 
 
 <script>
-import axios from 'axios'
+import { bluelyticsLatest } from '@/assets/tools'
 
 export default {
   data() {
     return {
-      bluelyticsUrl: "https://api.bluelytics.com.ar/v2/latest",
-      dollar: {
-        oficial: 0.0,
-        blue: 0.0
-      }
-    }
-  },
-  computed: {
-    dollarOficial() {
-      if (this.dollar.oficial === 0.0) {
-        this.dollarCardsUpdate()
-      }
-      return this.dollar.oficial
-    },
-    dollarBlue() {
-      if (this.dollar.blue === 0.0) {
-        this.dollarCardsUpdate()
-      }
-      return this.dollar.blue
+      oficialVenta: 0,
+      oficialCompra: 0,
+      blueVenta: 0,
+      blueCompra: 0,
     }
   },
   methods: {
-    dollarCardsUpdate(){
-      axios.get(this.bluelyticsUrl)
-      .then((response) => {
-        this.dollar["oficial"] = response["data"]["oficial"]["value_sell"]
-        this.dollar["blue"] = response["data"]["blue"]["value_sell"]
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    }
-  }
+    async getDollarPrices() {
+      const dollarPrice = await bluelyticsLatest()
+      this.oficialVenta = dollarPrice.oficial.value_sell
+      this.oficialCompra = dollarPrice.oficial.value_buy
+      this.blueVenta = dollarPrice.blue.value_sell
+      this.blueCompra = dollarPrice.blue.value_buy
+    },
+  },
+  async created() {
+    await this.getDollarPrices()
+  },
 }
 </script>

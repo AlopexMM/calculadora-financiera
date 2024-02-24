@@ -78,7 +78,7 @@
                         this.warning = true
                         console.log(err)
                     }
-                } else enteredSalary = false
+                } else this.enteredSalary = false
             }
         }
     }

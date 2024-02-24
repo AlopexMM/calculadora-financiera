@@ -8,7 +8,7 @@
             <hr>
             <div class="content">
                 <div class="field">
-                    <div class="control has-icons-right" v-if="enteredSalary == false">
+                    <div class="control has-icons-right" v-if="enteredSalary">
                         <input type="text" class="input" placeholder="Sueldo en pesos" ref="salaryInPesos">
                     </div>
                     <div class="control has-icons-right" v-else>
@@ -34,7 +34,7 @@
                         Hubo un problema con la conexión de la API bluelytics.
                     </div>
                 </article>
-                <p>La tabla muestra su salario en dolares de la fecha {{ dateStr }}. <br> Si el mismo estuviera indexado cuanto seria.</p>
+                <p>La tabla muestra su salario en dolares (segun el precio oficial) de la fecha {{ dateStr }}. <br> Si el mismo estuviera indexado cuanto seria.</p>
                 <table class="table is-fullwidth">
                     <thead>
                         <tr>
@@ -70,7 +70,7 @@ export default {
             salaryInDollars: 0,
             salaryInPesosToday: 0,
             salaryPercentageDifference: 0,
-            enteredSalary: false,
+            enteredSalary: true,
             warning: false,
         }
     },
@@ -103,9 +103,7 @@ export default {
                     this.warning = true
                     console.log(err)
                 }
-
-                
-            }
+            } else this.enteredSalary = false
         },
     },
 }
