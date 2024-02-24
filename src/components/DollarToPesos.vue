@@ -3,7 +3,6 @@
         <div class="card-content">
             <div class="content">
                 <p>Si conoce su sueldo en dolares calcule cuanto tendria que cobrar en pesos hoy</p>
-                <p>Luego presione en calcular.</p>
             </div>
             <hr>
             <div class="content">
