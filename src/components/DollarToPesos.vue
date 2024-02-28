@@ -40,11 +40,11 @@
                     <tbody>
                     <tr>
                         <td>Salario calculado con dolar blue</td>
-                        <td>$ {{ salaryFromDollarBlueToPesos.toFixed(2) }}</td>
+                        <td>{{ salaryFromDollarBlueToPesos }}</td>
                     </tr>
                     <tr>
                         <td>Salario calculado con dolar oficial</td>
-                        <td>$ {{ salaryFromDollarOficialToPesos.toFixed(2) }}</td>
+                        <td>{{ salaryFromDollarOficialToPesos }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import { salaryCheck, bluelyticsLatest } from '@/assets/tools.js'
+    import { salaryCheck, bluelyticsLatest, currencyFormat } from '@/assets/tools.js'
 
     export default {
         data() {
@@ -71,14 +71,14 @@
                 if (salaryCheck(salaryInDollars)) {
                     try {
                         const dollarToday = await bluelyticsLatest()
-                        this.salaryFromDollarBlueToPesos = parseFloat(salaryInDollars) * dollarToday.blue.value_sell
-                        this.salaryFromDollarOficialToPesos = parseFloat(salaryInDollars) * dollarToday.oficial.value_sell
+                        this.salaryFromDollarBlueToPesos = currencyFormat(parseFloat(salaryInDollars).toFixed(2) * dollarToday.blue.value_sell.toFixed(2))
+                        this.salaryFromDollarOficialToPesos = currencyFormat(parseFloat(salaryInDollars).toFixed(2) * dollarToday.oficial.value_sell.toFixed(2))
                     } catch (err) {
                         this.warning = true
                         console.log(err)
                     }
                 } else this.enteredSalary = false
-            }
+            },
         }
     }
 </script>

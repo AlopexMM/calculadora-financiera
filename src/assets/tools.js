@@ -41,3 +41,7 @@ export function salaryCheck(salary) {
     return false
 }
 
+export function currencyFormat(amount) {
+    let currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
+    return currency.format(amount)
+}

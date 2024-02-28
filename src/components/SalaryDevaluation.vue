@@ -45,11 +45,11 @@
                     <tbody>
                         <tr>
                         <td>Dolares</td>
-                        <td>$ {{ salaryInDollars.toFixed(2) }}</td>
+                        <td>{{ salaryInDollars }}</td>
                         </tr>
                         <tr>
                         <td>Pesos</td>
-                        <td>$ {{ salaryInPesosToday.toFixed(2) }}</td>
+                        <td>{{ salaryInPesosToday }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -61,7 +61,7 @@
 
 <script>
 import Datepicker from '@/components/Datepicker.vue'
-import { bluelyticsHistorical, salaryCheck, bluelyticsLatest } from '@/assets/tools'
+import { bluelyticsHistorical, salaryCheck, bluelyticsLatest, currencyFormat } from '@/assets/tools'
 
 export default {
     data() {
@@ -92,13 +92,15 @@ export default {
                     const dollarHistorical = await bluelyticsHistorical(this.dateStr)
                     const dollarLatest = await bluelyticsLatest()
                     // Salary in dollars
-                    this.salaryInDollars = salaryInPesos / dollarHistorical.oficial.value_sell
-            
+                    this.salaryInDollars = salaryInPesos.toFixed(2) / dollarHistorical.oficial.value_sell.toFixed(2)
                     // Salary in pesos today
-                    this.salaryInPesosToday = this.salaryInDollars * dollarLatest.oficial.value_sell
-
+                    this.salaryInPesosToday = this.salaryInDollars.toFixed(2) * dollarLatest.oficial.value_sell.toFixed(2)
                     // Salary difference in percentage
-                    this.salaryPercentageDifference = (this.salaryInPesosToday - salaryInPesos) / salaryInPesos * 100
+                    this.salaryPercentageDifference = (this.salaryInPesosToday.toFixed(2) - salaryInPesos.toFixed(2)) / salaryInPesos.toFixed(2) * 100
+
+                    this.salaryInPesosToday = currencyFormat(this.salaryInPesosToday)
+                    this.salaryInDollars = currencyFormat(this.salaryInDollars)
+                
                 } catch(err) {
                     this.warning = true
                     console.log(err)
