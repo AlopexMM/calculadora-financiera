@@ -45,11 +45,11 @@
                     <tbody>
                         <tr>
                         <td>Dolares</td>
-                        <td>{{ salaryInDollars }}</td>
+                        <td>{{ this.currencyFormat(salaryInDollars) }}</td>
                         </tr>
                         <tr>
                         <td>Pesos</td>
-                        <td>{{ salaryInPesosToday }}</td>
+                        <td>{{ this.currencyFormat(salaryInPesosToday) }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -61,7 +61,7 @@
 
 <script>
 import Datepicker from '@/components/Datepicker.vue'
-import { bluelyticsHistorical, salaryCheck, bluelyticsLatest, currencyFormat } from '@/assets/tools'
+import { bluelyticsHistorical, salaryCheck, bluelyticsLatest } from '@/assets/tools'
 
 export default {
     data() {
@@ -97,15 +97,15 @@ export default {
                     this.salaryInPesosToday = this.salaryInDollars.toFixed(2) * dollarLatest.oficial.value_sell.toFixed(2)
                     // Salary difference in percentage
                     this.salaryPercentageDifference = (this.salaryInPesosToday.toFixed(2) - salaryInPesos.toFixed(2)) / salaryInPesos.toFixed(2) * 100
-
-                    this.salaryInPesosToday = currencyFormat(this.salaryInPesosToday)
-                    this.salaryInDollars = currencyFormat(this.salaryInDollars)
-                
                 } catch(err) {
                     this.warning = true
                     console.log(err)
                 }
             } else this.enteredSalary = false
+        },
+        currencyFormat(amount) {
+            let currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
+            return currency.format(amount)
         },
     },
 }

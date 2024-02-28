@@ -40,11 +40,11 @@
                     <tbody>
                     <tr>
                         <td>Salario calculado con dolar blue</td>
-                        <td>{{ salaryFromDollarBlueToPesos }}</td>
+                        <td>{{ currencyFormat(salaryFromDollarBlueToPesos) }}</td>
                     </tr>
                     <tr>
                         <td>Salario calculado con dolar oficial</td>
-                        <td>{{ salaryFromDollarOficialToPesos }}</td>
+                        <td>{{ currencyFormat(salaryFromDollarOficialToPesos) }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import { salaryCheck, bluelyticsLatest, currencyFormat } from '@/assets/tools.js'
+    import { salaryCheck, bluelyticsLatest } from '@/assets/tools.js'
 
     export default {
         data() {
@@ -71,13 +71,17 @@
                 if (salaryCheck(salaryInDollars)) {
                     try {
                         const dollarToday = await bluelyticsLatest()
-                        this.salaryFromDollarBlueToPesos = currencyFormat(parseFloat(salaryInDollars).toFixed(2) * dollarToday.blue.value_sell.toFixed(2))
-                        this.salaryFromDollarOficialToPesos = currencyFormat(parseFloat(salaryInDollars).toFixed(2) * dollarToday.oficial.value_sell.toFixed(2))
+                        this.salaryFromDollarBlueToPesos = parseFloat(salaryInDollars).toFixed(2) * dollarToday.blue.value_sell.toFixed(2)
+                        this.salaryFromDollarOficialToPesos = parseFloat(salaryInDollars).toFixed(2) * dollarToday.oficial.value_sell.toFixed(2)
                     } catch (err) {
                         this.warning = true
                         console.log(err)
                     }
                 } else this.enteredSalary = false
+            },
+            currencyFormat(amount) {
+                let currency = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
+                return currency.format(amount)
             },
         }
     }
